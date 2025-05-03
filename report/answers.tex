@@ -1,0 +1,51 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{geometry}
+\geometry{margin=1in}
+\usepackage{cite}
+
+\setlength{\parindent}{0em}
+\setlength{\parskip}{1em}
+
+\title{Order Flow Imbalance: Conceptual Questions}
+\author{Siyu Hu}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\section*{1. Why measure OFI at multiple depth levels of the order book?}
+
+Measuring Order Flow Imbalance (OFI) at multiple depth levels provides a more complete picture of latent liquidity and directional pressure in financial markets. While best-level OFI captures activity only at the top of the order book, it omits meaningful signals from deeper levels, where traders often place or cancel large passive orders. This is especially relevant in high-frequency or low-liquidity environments, where the full depth of the book informs short-term market dynamics\cite{Cont2013}.
+
+Multi-level OFI aggregates changes across several price levels (e.g., top 5 or top 10), assigning lower weights to deeper levels to reflect their reduced immediacy. This captures a broader spectrum of behavior, including hidden liquidity, strategic cancellations, and spoofing, which may not be visible at the top level alone.
+
+As a result, multi-level OFI enhances both the robustness and predictive power of OFI features by integrating richer information on order book structure and supply-demand imbalances.
+
+\section*{2. Why do the authors use Lasso regression rather than OLS for estimating cross-impact?}
+
+The authors adopt Lasso regression instead of Ordinary Least Squares (OLS) to estimate cross-asset impacts in a high-dimensional setting\cite{Cont2013}. In such settings, the return of one asset may depend on the OFIs of many others, resulting in a large set of potential regressors, most of which may have little to no impact.
+
+Lasso addresses this by adding an $\ell_1$ regularization term to the loss function, promoting sparsity in the coefficient estimates. This results in automatic variable selection—shrinking the coefficients of irrelevant predictors to zero—while also providing regularization to avoid overfitting.
+
+In contrast, OLS includes all variables regardless of relevance, which can inflate variance and reduce generalization performance. Lasso’s ability to select key drivers of cross-impact and suppress noise makes it well-suited for estimating sparse influence structures in financial data.
+
+\section*{3. Why is OFI considered a better predictor of short-term returns than trade volume?}
+
+Compared to trade volume, Order Flow Imbalance (OFI) offers a more insightful measure for predicting short-term returns, as it captures the directional pressure exerted by market participants rather than merely quantifying transaction activity\cite{Cont2013}.
+
+Trade volume is agnostic to order direction—it does not distinguish between buyer-initiated and seller-initiated trades. As a result, high volume can occur during both upward and downward price movements. In contrast, OFI captures the net pressure between supply and demand by incorporating order book changes, such as new bids and asks or cancellations.
+
+Because OFI includes both executed trades and passive order updates, it provides early insight into evolving market pressure and latent liquidity shifts that often precede price changes. This directional and structural sensitivity makes OFI a more forward-looking and effective input for modeling short-term price behavior.
+
+\bibliographystyle{plain}
+\begin{thebibliography}{1}
+
+\bibitem{Cont2013}
+R.~Cont and A.~de Larrard.
+\newblock Price dynamics in a Markovian limit order market.
+\newblock \emph{SIAM Journal on Financial Mathematics}, 4(1):1--25, 2013.
+
+\end{thebibliography}
+
+\end{document}

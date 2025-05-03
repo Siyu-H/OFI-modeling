@@ -1,0 +1,20 @@
+# pyproject.toml
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ofi_modeling"
+version = "0.1.0"
+description = "Feature engineering for Order Flow Imbalance analysis based on equity market microstructure."
+authors = [
+    { name = "Siyu Hu", email = "sh1966@georgetown.edu" }
+]
+license = { text = "MIT" }
+readme = "README.md"
+requires-python = ">=3.8"
+dependencies = [
+    "pandas>=1.5",
+    "numpy>=1.20",
+    "pytest>=7.0"
+]
